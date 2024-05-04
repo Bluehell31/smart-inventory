@@ -1,9 +1,9 @@
 "use client";
-import { crearProveedor, modificarProveedor } from "@/lib/proveedores";
+import { crearCategoria, modificarCategoria } from "@/lib/categorias";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Proveedores({ form, mode }) {
+export default function Categorias({ form, mode }) {
   const { refresh, replace } = useRouter();
   // Estado para guardar los datos del formulario
   const [formData, setFormData] = useState(form || {});
@@ -21,10 +21,10 @@ export default function Proveedores({ form, mode }) {
   const handleSubmit = async () => {
     switch (mode) {
       case "create":
-        await crearProveedor(formData);
+        await crearCategoria(formData);
         break;
       case "update":
-        await modificarProveedor(formData);
+        await modificarCategoria(formData);
         break;
     }
   };
@@ -32,18 +32,19 @@ export default function Proveedores({ form, mode }) {
   return (
     <div className="w-1/3 mx-auto p-4 shadow-md bg-white">
       <div className="mb-4">
-        <label
-          htmlFor="idproveedor"
+      <label
+          htmlFor="idcategoria"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
-          Código del Proveedor:
+          Código de la Categoría:
         </label>
         {mode === "update" && (
+            
           <input
             type="text"
-            id="idproveedor"
-            name="idproveedor"
-            value={formData.idproveedor || ""}
+            id="idcategoria"
+            name="idcategoria"
+            value={formData.idcategoria || ""}
             readOnly
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
@@ -51,16 +52,16 @@ export default function Proveedores({ form, mode }) {
       </div>
       <div className="mb-4">
         <label
-          htmlFor="nombreproveedor"
+          htmlFor="nombrecategoria"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
-          Nombre del Proveedor:
+          Nombre de la Categoría:
         </label>
         <input
           type="text"
-          id="nombreproveedor"
-          name="nombreproveedor"
-          value={formData.nombreproveedor || ""}
+          id="nombrecategoria"
+          name="nombrecategoria"
+          value={formData.nombrecategoria || ""}
           onChange={handleChange}
           required
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -68,49 +69,16 @@ export default function Proveedores({ form, mode }) {
       </div>
       <div className="mb-4">
         <label
-          htmlFor="direccion"
+          htmlFor="descripcion"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
-          Dirección:
+          Descripción:
         </label>
         <textarea
-          id="direccion"
-          name="direccion"
-          value={formData.direccion || ""}
+          id="descripcion"
+          name="descripcion"
+          value={formData.descripcion || ""}
           onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="telefono"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Teléfono:
-        </label>
-        <input
-          type="text"
-          id="telefono"
-          name="telefono"
-          value={formData.telefono || ""}
-          onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-      </div>
-      <div className="mb-6">
-        <label
-          htmlFor="email"
-          className="block text-gray-700 text-sm font-bold mb-2"
-        >
-          Email:
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email || ""}
-          onChange={handleChange}
-          required
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
@@ -118,7 +86,7 @@ export default function Proveedores({ form, mode }) {
         onClick={async () => {
           await handleSubmit(); // Espera a que handleSubmit se complete
           refresh();
-          replace('/proveedores');
+          replace('/categorias');
         }}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >

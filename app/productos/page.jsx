@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Button from "@/components/Button";
 import { eliminarProducto, obtenerProductos } from "@/lib/productos"; // Importar las funciones para eliminar y obtener productos
-import Productos from "@/components/Productos"; // Importar el componente de productos
 
 export default async function Page() {
   const productos = await obtenerProductos(); // Obtener la lista de productos
@@ -23,9 +22,9 @@ export default async function Page() {
             <th className="px-4 py-2">Nombre</th>
             <th className="px-4 py-2">Descripción</th> {/* Cambiar a "Descripción" */}
             <th className="px-4 py-2">Precio</th> {/* Agregar "Precio" */}
-            <th className="px-4 py-2">ID Categoría</th> {/* Agregar "ID Categoría" */}
-            <th className="px-4 py-2">ID Medida</th> {/* Agregar "ID Medida" */}
-            <th className="px-4 py-2">ID Proveedor</th> {/* Agregar "ID Proveedor" */}
+            <th className="px-4 py-2">Categoría</th> {/* Agregar "ID Categoría" */}
+            <th className="px-4 py-2">Medida</th> {/* Agregar "ID Medida" */}
+            <th className="px-4 py-2">Proveedor</th> {/* Agregar "ID Proveedor" */}
             <th className="px-4 py-2">Usuario Creador</th> {/* Agregar "Usuario Creador" */}
             <th className="px-4 py-2">Acciones</th>
           </tr>
@@ -33,18 +32,25 @@ export default async function Page() {
         <tbody>
           {productos.map((producto) => ( // Iterar sobre la lista de productos
             <tr key={producto.idproducto} className="hover:bg-gray-100">
-              <td className="border px-4 py-2">{producto.idproducto}</td>
+              <td className="border px-4 py-2">
+                <Link
+                  href={`/productos/${producto.idproducto}`}
+                  className="text-blue-600 hover:text-blue-800"
+                >
+                  {producto.idproducto}
+                </Link>
+              </td>
               <td className="border px-4 py-2">{producto.nombre}</td> {/* Cambiar a "Nombre" */}
               <td className="border px-4 py-2">{producto.descripcion}</td> {/* Cambiar a "Descripcion" */}
               <td className="border px-4 py-2">{producto.precio}</td> {/* Agregar "Precio" */}
-              <td className="border px-4 py-2">{producto.idcategoria}</td> {/* Agregar "IDCategoria" */}
-              <td className="border px-4 py-2">{producto.idcategoria}</td> {/* Agregar "IDMedida" */}
-              <td className="border px-4 py-2">{producto.idcategoria}</td> {/* Agregar "IDProveedor" */}
+              <td className="border px-4 py-2">{producto.nombrecategoria}</td> {/* Agregar "IDCategoria" */}
+              <td className="border px-4 py-2">{producto.nombremedida}</td> {/* Agregar "IDMedida" */}
+              <td className="border px-4 py-2">{producto.nombreproveedor}</td> {/* Agregar "IDProveedor" */}
               <td className="border px-4 py-2">{producto.usuariocreador}</td> {/* Agregar "UsuarioCreador" */}
               <td className="border px-4 py-2">
                 <Button
-                  action={eliminarProducto} // Cambiar la función para eliminar productos
-                  value={producto.IDProducto} // Cambiar el valor que se pasa a la función eliminarProducto
+                  action={eliminarProducto}
+                  value={producto.idproducto}
                 >
                   Eliminar
                 </Button>
@@ -53,7 +59,6 @@ export default async function Page() {
           ))}
         </tbody>
       </table>
-      <Productos mode="insert" /> {/* Utilizar el componente de productos con el modo "insert" */}
     </div>
   );
 }
