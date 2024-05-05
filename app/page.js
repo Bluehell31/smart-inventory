@@ -19,6 +19,9 @@ export default function Home() {
                 <Link href="/proveedores" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                     Gestionar Proveedores
                 </Link>
+                <Link href="/inventarios" className="bg-green-700 hover:bg-green-400 text-white font-bold py-2 px-4 rounded">
+                    Gestionar Inventario
+                </Link>
                 <Link href="/bodegas" className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                     Gestionar Bodegas
                 </Link>

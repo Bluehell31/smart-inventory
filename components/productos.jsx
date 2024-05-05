@@ -34,7 +34,7 @@ export default function Productos({ form, categorias,medidas,proveedores,usuario
     <div className="w-1/3 mx-auto p-4 shadow-md bg-white">
       <div className="mb-4">
         <label
-          htmlFor="idproducto"
+          htmlFor="nombre"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
           Nombre del Producto:
