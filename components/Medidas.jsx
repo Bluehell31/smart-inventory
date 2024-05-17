@@ -1,12 +1,14 @@
 "use client";
 import { crearMedida, modificarMedida } from "@/lib/medidas";
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function Medidas({ form, mode }) {
   const { refresh, replace } = useRouter();
+  // Estado para guardar los datos del formulario
   const [formData, setFormData] = useState(form || {});
 
+  // Manejador para los cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -15,17 +17,17 @@ export default function Medidas({ form, mode }) {
     }));
   };
 
+  // Manejador para el envío del formulario
   const handleSubmit = async () => {
     switch (mode) {
       case "create":
         await crearMedida(formData);
-        refresh(); // Actualiza la página actual para mostrar la nueva medida
         break;
       case "update":
         await modificarMedida(formData);
-        replace('/medidas'); // Redirige a la página principal de medidas tras actualizar
         break;
     }
+    refresh();
   };
 
   return (
@@ -82,11 +84,13 @@ export default function Medidas({ form, mode }) {
       </div>
       <button
         onClick={async () => {
-          await handleSubmit();
+          await handleSubmit(); // Espera a que handleSubmit se complete
+          refresh();
+          replace('/medidas');
         }}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >
-        {mode === 'create' ? 'Crear Medida' : 'Actualizar Medida'}
+        Enviar
       </button>
     </div>
   );

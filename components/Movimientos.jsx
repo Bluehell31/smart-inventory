@@ -27,18 +27,18 @@ export default function Movimientos({ form, productos, bodegas, usuarios, mode }
         await modificarMovimiento(formData);
         break;
     }
-    
-    replace('/movimientos');
+    refresh();
   };
 
   return (
     <div className="w-1/3 mx-auto p-4 shadow-md bg-white">
+      
       <div className="mb-4">
         <label htmlFor="idproducto" className="block text-gray-700 text-sm font-bold mb-2">
           Producto:
         </label>
         <select
-          id="idproducto"
+          id="idproducto" 
           name="idproducto"
           value={formData.idproducto}
           onChange={handleChange}
@@ -114,7 +114,8 @@ export default function Movimientos({ form, productos, bodegas, usuarios, mode }
       <button
         onClick={async () => {
           await handleSubmit();
-          refresh(); // Refresh the page to reflect changes
+          refresh();
+          replace('/movimientos') // Refresh the page to reflect changes
         }}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >

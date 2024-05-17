@@ -6,7 +6,12 @@ import { useRouter } from "next/navigation";
 export default function Productos({ form, categorias,medidas,proveedores,usuarios, mode }) {
   const { refresh,replace } = useRouter();
   // Estado para guardar los datos del formulario
-  const [formData, setFormData] = useState(form || {});
+  const [formData, setFormData] = useState(form || {
+    idcategoria: '', // Valor inicial vacío para que se seleccione la etiqueta por defecto
+    idmedida: '',
+    idproveedor: '',
+    idusuario:''
+  });
 
   // Manejador para los cambios en los inputs
   const handleChange = (e) => {
@@ -22,9 +27,11 @@ export default function Productos({ form, categorias,medidas,proveedores,usuario
     switch (mode) {
       case "create":
         await crearProducto(formData);
+        
         break;
       case "update":
         await modificarProducto(formData);
+        
         break;
     }
     refresh();
@@ -96,6 +103,7 @@ export default function Productos({ form, categorias,medidas,proveedores,usuario
           required
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         >
+          <option value="">Seleccione una categoria</option>
           {categorias.map((categoria) => (
             <option key={categoria.value} value={categoria.value}>
               {categoria.label}
@@ -115,6 +123,7 @@ export default function Productos({ form, categorias,medidas,proveedores,usuario
           required
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         >
+          <option value="">Seleccione una medida</option>
           {medidas.map((medida) => (
             <option key={medida.value} value={medida.value}>
               {medida.label}
@@ -134,6 +143,7 @@ export default function Productos({ form, categorias,medidas,proveedores,usuario
           required
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         >
+          <option value="">Seleccione un proveedor</option>
           {proveedores.map((proveedor) => (
             <option key={proveedor.value} value={proveedor.value}>
               {proveedor.label}
@@ -153,6 +163,7 @@ export default function Productos({ form, categorias,medidas,proveedores,usuario
         required
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       >
+        <option value="">Seleccione un usuario</option>
         {usuarios.map((usuario) => (
           <option key={usuario.value} value={usuario.value}>
             {usuario.label}

@@ -18,7 +18,7 @@ export default function Bodegas({ form, mode }) {
     }));
   };
 
-  // Manejador para el envío del formulario
+  
   const handleSubmit = async () => {
     switch (mode) {
       case "create":
@@ -28,10 +28,14 @@ export default function Bodegas({ form, mode }) {
         await modificarBodega(formData);
         break;
     }
+    
+    replace('/bodegas');
+    refresh();
   };
 
   return (
     <div className="w-1/3 mx-auto p-4 shadow-md bg-white">
+      {mode === "update" && (
       <div className="mb-4">
         <label
           htmlFor="idbodega"
@@ -39,28 +43,29 @@ export default function Bodegas({ form, mode }) {
         >
           Código de la Bodega:
         </label>
-        {mode === "update" && (
+        
           <input
             type="text"
             id="idbodega"
             name="idbodega"
             value={formData.idbodega || ""}
             readOnly
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className=" shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-        )}
+        
       </div>
+      )}
       <div className="mb-4">
         <label
-          htmlFor="nombreBodega"
+          htmlFor="nombrebodega"
           className="block text-gray-700 text-sm font-bold mb-2"
         >
           Nombre de la Bodega:
         </label>
         <input
           type="text"
-          id="nombreBodega"
-          name="nombreBodega"
+          id="nombrebodega"
+          name="nombrebodega"
           value={formData.nombrebodega || ""}
           onChange={handleChange}
           required
@@ -86,7 +91,7 @@ export default function Bodegas({ form, mode }) {
         onClick={async () => {
           await handleSubmit(); // Espera a que handleSubmit se complete
           refresh();
-          replace('/bodegas');
+          
         }}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
       >

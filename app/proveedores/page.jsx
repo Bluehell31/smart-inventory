@@ -7,6 +7,14 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col mx-auto px-4 py-6 gap-6">
+      <div className="absolute top-4 left-4">
+      <Link
+          href="/" // Cambiar la ruta a donde se crea un nuevo producto
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+            >
+            Volver al menu principal
+          </Link>
+        </div>
       <div className="flex justify-center">
         <Link
           href="/proveedores/create"

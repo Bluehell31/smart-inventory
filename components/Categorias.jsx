@@ -8,6 +8,25 @@ export default function Categorias({ form, mode }) {
   // Estado para guardar los datos del formulario
   const [formData, setFormData] = useState(form || {});
 
+  const validateForm = () => {
+    let tempErrors = {};
+    // Validación del nombre de la categoría
+    if (!formData.nombrecategoria) {
+      tempErrors.nombrecategoria = "El nombre de la categoría es obligatorio.";
+    } else if (formData.nombrecategoria.length > 255) {
+      tempErrors.nombrecategoria = "El nombre de la categoría no puede exceder 255 caracteres.";
+    }
+  
+    // Validación opcional para la descripción
+    if (formData.descripcion && formData.descripcion.length > 1500) {
+      tempErrors.descripcion = "La descripción no puede exceder 1500 caracteres.";
+    }
+  
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+  
+
   // Manejador para los cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,10 +46,12 @@ export default function Categorias({ form, mode }) {
         await modificarCategoria(formData);
         break;
     }
+    refresh();
   };
 
   return (
     <div className="w-1/3 mx-auto p-4 shadow-md bg-white">
+      {mode === "update" && (
       <div className="mb-4">
       <label
           htmlFor="idcategoria"
@@ -38,8 +59,7 @@ export default function Categorias({ form, mode }) {
         >
           Código de la Categoría:
         </label>
-        {mode === "update" && (
-            
+        
           <input
             type="text"
             id="idcategoria"
@@ -48,8 +68,9 @@ export default function Categorias({ form, mode }) {
             readOnly
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-        )}
+        
       </div>
+      )}
       <div className="mb-4">
         <label
           htmlFor="nombrecategoria"
